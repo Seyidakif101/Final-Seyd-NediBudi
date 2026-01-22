@@ -1,4 +1,6 @@
+using System.Threading.Tasks;
 using Final_Seyd_NediBudi.Context;
+using Final_Seyd_NediBudi.Helper;
 using Final_Seyd_NediBudi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,11 +9,12 @@ namespace Final_Seyd_NediBudi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<DbContextInit>();
             builder.Services.AddDbContext<AppDbContext>(opt =>
             {
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
@@ -21,7 +24,9 @@ namespace Final_Seyd_NediBudi
 
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
             var app = builder.Build();
-
+            var scope = app.Services.CreateScope();
+            var contextItin = scope.ServiceProvider.GetRequiredService<DbContextInit>();
+            await contextItin.Initalizer();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

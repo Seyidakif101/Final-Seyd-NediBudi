@@ -43,10 +43,21 @@
 
                     <div class="logo-wrapper">
                         <h1 class="logo">
-                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
-                                <img src="~/images/logo.png" alt="Circle Template">
-                                <span>Responsive Mobile Template</span>
-                            </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                                    <img src="~/images/logo.png" alt="Circle Template">
+                                    <span>Responsive Mobile Template</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a >
+                                    <img src="~/images/logo.png" alt="Circle Template">
+                                    <span>Responsive Mobile Template</span>
+                                </a>
+                            }
+                            
                         </h1>
                     </div> <!-- /.logo-wrapper -->
 
@@ -57,7 +68,27 @@
                             <li><a class="show-2" href="#">Services</a></li>
                             <li><a class="show-3" href="#">Gallery</a></li>
                             <li><a class="show-4" href="#" onclick="templatemo_map();">Contact</a></li>
+                           
                             <li><a rel="nofollow" href="http://www.facebook.com/templatemo" target="_parent">External Link</a></li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">@User.Identity.Name</a></li>
+                                    <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+
+                                }
+                                else
+                                {
+                                    <li><a>@User.Identity.Name</a></li>
+                                    <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                                }
+                            }
+                            else
+                            {
+                                <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                                <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                            }
                         </ul> <!-- /.menu -->
                         <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
                     </div> <!-- /.menu-wrapper -->
