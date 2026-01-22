@@ -27,6 +27,7 @@ namespace Final_Seyd_NediBudi
             var scope = app.Services.CreateScope();
             var contextItin = scope.ServiceProvider.GetRequiredService<DbContextInit>();
             await contextItin.Initalizer();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
