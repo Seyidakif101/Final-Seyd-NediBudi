@@ -1,4 +1,4 @@
-﻿
+﻿@model List<EmployeeGetVM>
 <div id="menu-1" class="about content">
     <div class="row">
         <ul class="tabs">
@@ -47,33 +47,18 @@
     </div> <!-- /.row -->
 
     <div class="row">
+        @foreach(var employee in Model)
+        {   
         <div class="col-md-4 col-sm-4">
             <div class="member-item">
                 <div class="thumb">
-                    <img src="~/images/team/member-1.jpg" alt="Tanya - Web Designer">
+                    <img src="~/images/@employee.ImagePath" alt="Image">
                 </div>
-                <h4>Tanya</h4>
-                <span>Web Designer</span>
+                <h4>@employee.Name</h4>
+                <span>@employee.PositionName</span>
             </div> <!-- /.member-item -->
         </div> <!-- /.col-md-4 -->
-        <div class="col-md-4 col-sm-4">
-            <div class="member-item">
-                <div class="thumb">
-                    <img src="~/images/team/member-2.jpg" alt="Candy - Web Developer">
-                </div>
-                <h4>Candy</h4>
-                <span>Web Developer</span>
-            </div> <!-- /.member-item -->
-        </div> <!-- /.col-md-4 -->
-        <div class="col-md-4 col-sm-4">
-            <div class="member-item">
-                <div class="thumb">
-                    <img src="~/images/team/member-3.jpg" alt="Julia - Creative Director">
-                </div>
-                <h4>Julia</h4>
-                <span>Creative Director</span>
-            </div> <!-- /.member-item -->
-        </div> <!-- /.col-md-4 -->
+        }
     </div> <!-- /.row -->
 </div> <!-- /.about -->
 

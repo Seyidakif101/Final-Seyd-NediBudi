@@ -1,16 +1,23 @@
 using System.Diagnostics;
+using Final_Seyd_NediBudi.Context;
+using Final_Seyd_NediBudi.ViewModels.EmployeeViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final_Seyd_NediBudi.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(AppDbContext _context) : Controller
     {
-       
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var employees = await _context.Employees.Select(x => new EmployeeGetVM()
+            {
+                Id=x.Id,
+                Name = x.Name,
+                ImagePath = x.ImagePath,
+                PositionName = x.Position.Name
+            }).ToListAsync();
+            return View(employees);
         }
-
     }
 }

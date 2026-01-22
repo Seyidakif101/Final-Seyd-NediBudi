@@ -1,0 +1,26 @@
+﻿@model EmployeeCreateVM
+<div class="container">
+    <div class="row">
+
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Enter Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image">Name</label>
+                <input asp-for="Image" class="form-control">
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PositionId">Position</label>
+                <select asp-for="PositionId" asp-items="@ViewBag.Positions" class="form-select" ></select>
+                <span asp-validation-for="PositionId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+
+    </div>
+</div>
